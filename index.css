@@ -1,0 +1,42 @@
+body {
+    background-color: #f5f5f5;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    color: brown;
+    font-size: 80px;
+}
+
+.todo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+   
+}
+
+.new-todo { 
+    height: max-content;
+    width: 100%;
+    padding:16px 16px 16px 40px;
+    font-size: 24px;
+    border: none;
+}
+
+.new-todo:focus {
+    border:5px solid red ;
+}
+
+menu { 
+    margin: 0;
+    padding: 0;
+}
+
+.footer-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
