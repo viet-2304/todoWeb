@@ -1,42 +1,225 @@
+html,
 body {
-    background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
 }
 
-h1 {
-    display: flex;
-    justify-content: center;
-    color: brown;
-    font-size: 80px;
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 100%;
+  vertical-align: baseline;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
 }
 
-.todo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-   
-}
+body {
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #f5f5f5;
+  color: #111111;
 
-.new-todo { 
-    height: max-content;
-    width: 100%;
-    padding:16px 16px 16px 40px;
-    font-size: 24px;
-    border: none;
+  max-width: 550px;
+  margin: 0 auto;
+  font-weight: 300;
 }
 
 .new-todo:focus {
-    border:5px solid red ;
+  outline: none;
+  border: 3px solid pink;
 }
 
-menu { 
-    margin: 0;
-    padding: 0;
+.hidden {
+  display: none;
 }
 
-.footer-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+.todo {
+  background: #fff;
+  margin: 130px 0 40px 0;
+  position: relative;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.todo input::-webkit-input-placeholder {
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.todo h1 {
+  position: absolute;
+  top: -140px;
+  width: 100%;
+  font-size: 80px;
+  font-weight: 200;
+  text-align: center;
+  color: #b83f45;
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+}
+
+.new-todo {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  font-size: 24px;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: 1.4em;
+  color: inherit;
+  padding: 6px;
+  border: 1px solid #999;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.new-todo {
+  padding: 16px 16px 16px 40px;
+  border: none;
+  background: rgba(0, 0, 0, 0.003);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+}
+
+.main {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
+}
+
+.check-all {
+  opacity: 0;
+  position: absolute;
+}
+
+.check-all + label {
+  width: 60px;
+  height: 34px;
+  font-size: 0;
+  position: absolute;
+  top: -54px;
+  left: -13px;
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+}
+
+.check-all + label:before {
+  content: "❯";
+  font-size: 22px;
+  color: #e6e6e6;
+  padding: 10px 27px 10px 27px;
+}
+
+.todo-list {
+  padding: 0;
+  list-style: none;
+}
+
+.todo-list li {
+  position: relative;
+  font-size: 24px;
+  border-bottom: 1px solid #ededed;
+}
+
+.todo-list li:last-child {
+  border-bottom: none;
+}
+
+.view {
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+  padding: 0;
+}
+
+.check {
+  margin: 0 30px;
+  text-align: center;
+  border: 5px solid #4d4d4d;
+  padding: 30px 30px;
+}
+
+.todo-list li label {
+  padding: 15px 15px 15px 10px;
+  display: block;
+  line-height: 1.2;
+  color: #4d4d4d;
+}
+
+.todo-list li .remove {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  font-size: 30px;
+  color: #cc9a9a;
+  margin-bottom: 11px;
+}
+
+.todo-list li .remove:after {
+  content: "×";
+}
+
+.todo-list li:hover .remove {
+  display: block;
+  color: #af5b5e;
+}
+
+/*footer in section*/
+.footer {
+  padding: 20px 10px;
+  height: 20px;
+  text-align: center;
+  font-size: 15px;
+  border-top: 1px solid #e6e6e6;
+}
+
+.count {
+  float: left;
+  text-align: left;
+}
+
+.filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+.filters li {
+  display: inline;
+}
+
+.filters li a {
+  margin: 3px;
+  padding: 3px 7px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+.filters li a:hover {
+  border-color: rgba(175, 47, 47, 0.1);
+}
+
+.filters li a.selected {
+  border-color: rgba(175, 47, 47, 0.3);
+}
+
+.clear-completed,
+html .clear-completed:active {
+  float: right;
+  position: relative;
+  line-height: 20px;
+  text-decoration: none;
+  cursor: pointer;
 }
