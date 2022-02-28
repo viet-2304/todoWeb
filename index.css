@@ -162,7 +162,7 @@ ul li input[type="checkbox"]:checked ~ label {
 .todo-list li .remove {
   display: none;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 95%;
   width: 40px;
   height: 40px;
