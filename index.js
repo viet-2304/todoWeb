@@ -1,6 +1,6 @@
 const todoList = document.querySelector("ul");
 const itemLeft = document.getElementById("item-left");
-
+const clearAll = document.getElementById("clear-completed");
 todoList.addEventListener("click", (event) => {
   if (event.target.classList.contains("remove")) {
     event.target.parentElement.remove();
@@ -16,7 +16,7 @@ todoList.addEventListener("dblclick", (event) => {
   event.target.parentElement.innerHTML = `<li class="editing">
   <div class="view">
     <input class="check" type="checkbox" />
-    <label></label>
+    <label>${textEdit}</label>
     <button class="remove" id="remove"></button>
   </div>
   <input id="edit" type="text" class="edit" value='${textEdit}'>
@@ -43,9 +43,9 @@ function setCount() {
   var allCheckBox = document.getElementsByClassName("check").length;
   itemLeft.innerHTML = allCheckBox - checkNumber;
   if (checkNumber != 0) {
-    document.getElementById("clear-completed").classList.remove("hidden");
+    clearAll.classList.remove("hidden");
   } else {
-    document.getElementById("clear-completed").classList.add("hidden");
+    clearAll.classList.add("hidden");
   }
   checkItemLeft();
 }
