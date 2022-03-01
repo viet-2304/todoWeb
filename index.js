@@ -1,6 +1,8 @@
 const todoList = document.querySelector("ul");
 const itemLeft = document.getElementById("item-left");
 const clearAll = document.getElementById("clear-completed");
+const checkAll = document.getElementById("label-check-all");
+
 todoList.addEventListener("click", (event) => {
   if (event.target.classList.contains("remove")) {
     event.target.parentElement.remove();
@@ -11,28 +13,9 @@ todoList.addEventListener("click", (event) => {
   }
 });
 
-todoList.addEventListener("dblclick", (event) => {
-  var textEdit = event.target.parentElement.querySelector("label").innerHTML;
-  event.target.parentElement.innerHTML = `<li class="editing">
-  <div class="view">
-    <input class="check" type="checkbox" />
-    <label>${textEdit}</label>
-    <button class="remove" id="remove"></button>
-  </div>
-  <input id="edit" type="text" class="edit" value='${textEdit}'>
-</li>`;
-});
-
-function getValueEdit() {
-  return;
-}
-
-todoList.addEventListener("keyup", (event) => {
-  var textEdit = document.getElementById("edit").value;
-  if (event.keyCode == 13) {
-    document.querySelector(".editing label").innerHTML = textEdit;
-    event.target.parentElement.classList.remove("editing");
-    document.querySelector("input.edit:not([hidden])").remove();
+todoList.addEventListener("keypress", (event) => {
+  if (event.keyCode === 13) {
+    event.preventDefault();
   }
 });
 
@@ -58,11 +41,11 @@ function checkItemLeft() {
   var itemLeftText = document.getElementById("item-left").innerHTML;
   if (itemLeftText !== "0") {
     element.classList.remove("hidden");
-    document.getElementById("label-check-all").classList.remove("hidden");
+    checkAll.classList.remove("hidden");
   }
   if (itemLeftText === "0" && checkNumber === 0) {
     element.classList.add("hidden");
-    document.getElementById("label-check-all").classList.add("hidden");
+    checkAll.classList.add("hidden");
   }
 }
 
@@ -78,9 +61,10 @@ function addItem(event) {
     var element = document.createElement("li");
     element.innerHTML = `<div class="view">
         <input class="check" type="checkbox" id="btnCheck">
-        <label>${valueInput}</label>
+        <label  id="text-label" contenteditable="true">${valueInput}</label>
         <button class="remove" onclick="removeTodoItem()"></button>
-        </div>`;
+        </div>
+        <input id="edit" type="text" class="edit hidden" value=''>`;
     document.querySelector("input").value = "";
     todoList.appendChild(element);
     setCount();
@@ -94,7 +78,7 @@ function removeItem(element) {
 
 document.querySelector(".clear-completed").addEventListener("click", () => {
   document
-    .querySelectorAll(' div input[type="checkbox"]:checked')
+    .querySelectorAll('div input[type="checkbox"]:checked')
     .forEach((item) => {
       removeItem(item.closest("li"));
     });
