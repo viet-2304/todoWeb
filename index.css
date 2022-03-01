@@ -26,7 +26,7 @@ body {
 }
 
 .new-todo:focus {
- outline: 4px solid pink;
+  outline: 4px solid pink;
 }
 
 .hidden {
@@ -147,7 +147,7 @@ ul li .check {
 }
 
 ul li input[type="checkbox"]:checked ~ label {
-  color: #cdcdcd;;
+  color: #cdcdcd;
   text-decoration: line-through;
 }
 
