@@ -11,9 +11,34 @@ todoList.addEventListener("click", (event) => {
   }
 });
 
+todoList.addEventListener("dblclick", (event) => {
+  var textEdit = event.target.parentElement.querySelector("label").innerHTML;
+  event.target.parentElement.innerHTML = `<li class="editing">
+  <div class="view">
+    <input class="check" type="checkbox" />
+    <label></label>
+    <button class="remove" id="remove"></button>
+  </div>
+  <input id="edit" type="text" class="edit" value='${textEdit}'>
+</li>`;
+});
+
+function getValueEdit() {
+  return;
+}
+
+todoList.addEventListener("keyup", (event) => {
+  var textEdit = document.getElementById("edit").value;
+  if (event.keyCode == 13) {
+    document.querySelector(".editing label").innerHTML = textEdit;
+    event.target.parentElement.classList.remove("editing");
+    document.querySelector("input.edit:not([hidden])").remove();
+  }
+});
+
 function setCount() {
   var checkNumber = document.querySelectorAll(
-    'input[type="checkbox"]:checked'
+    'div input[type="checkbox"]:checked'
   ).length;
   var allCheckBox = document.getElementsByClassName("check").length;
   itemLeft.innerHTML = allCheckBox - checkNumber;
@@ -28,7 +53,7 @@ function setCount() {
 function checkItemLeft() {
   var element = document.getElementById("footer");
   var checkNumber = document.querySelectorAll(
-    'input[type="checkbox"]:checked'
+    'div input[type="checkbox"]:checked'
   ).length;
   var itemLeftText = document.getElementById("item-left").innerHTML;
   if (itemLeftText !== "0") {
@@ -42,9 +67,14 @@ function checkItemLeft() {
 }
 
 function addItem(event) {
+  var valueInput = document.getElementById("input").value;
   var todoList = document.querySelector("ul");
-  if (event.keyCode == 13) {
-    var valueInput = document.getElementById("input").value;
+  var letterNumber = /^[ ]+$/;
+  if (
+    event.keyCode == 13 &&
+    valueInput.match(letterNumber) == null &&
+    valueInput.length != 0
+  ) {
     var element = document.createElement("li");
     element.innerHTML = `<div class="view">
         <input class="check" type="checkbox" id="btnCheck">
@@ -64,10 +94,11 @@ function removeItem(element) {
 
 document.querySelector(".clear-completed").addEventListener("click", () => {
   document
-    .querySelectorAll('input[type="checkbox"]:checked')
+    .querySelectorAll(' div input[type="checkbox"]:checked')
     .forEach((item) => {
       removeItem(item.closest("li"));
     });
+  checkItemLeft();
 });
 
 function findAll() {
@@ -100,4 +131,5 @@ document.getElementById("label-check-all").addEventListener("click", () => {
   allCheckbox.forEach((element) => {
     element.checked = true;
   });
+  setCount();
 });
