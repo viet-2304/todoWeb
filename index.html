@@ -1,60 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous"
-  />
-  <link rel="stylesheet" href="index.css"/>
-  
-  <title>Todo App</title>
-</head>
-<body>
-  <section class="todo"> 
-    <h1 class="mt-4">Todos</h1>
-    <input class="new-todo" placeholder="What need to be done?" id="input" onkeypress="addItem(event)">
-    <section class="main">
-      <input id="check-all" class="check-all" type="checkbox">
-      <label class="hidden" id="label-check-all">Mark all as complete</label>
-      <ul class="todo-list">
-        <li>
-          <div class="view">
-            <input class="check" type="checkbox">
-            <label>hello</label>
-          </div>
-          <button class="remove" id="remove"></button>
-      </li>
-      </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    <section class="todo">
+      <h1 class="mt-4">Todos</h1>
+      <input
+        class="new-todo"
+        placeholder="What need to be done?"
+        id="input"
+        onkeypress="addItem(event)"
+      />
+
+      <section class="main">
+        <input id="check-all" class="check-all" type="checkbox" />
+        <label class="hidden" id="label-check-all">Mark all as complete</label>
+        <ul class="todo-list"></ul>
+      </section>
+
+      <div class="footer-section hidden" id="footer">
+        <span class="count"><strong id="item-left">0</strong> items left</span>
+        <ul class="filters">
+          <li class="mr-3">
+            <a class="selected filtro" onclick="findAll()">All</a>
+          </li>
+          <li class="mr-3">
+            <a class="filtro" onclick="findActive()">Active</a>
+          </li>
+          <li class="mr-3">
+            <a class="filtro" onclick="findComplete()">Completed</a>
+          </li>
+        </ul>
+        <button class="clear-completed hidden" id="clear-completed">
+          Clear completed
+        </button>
+      </div>
     </section>
-    <div class="footer-section hidden" id="footer">
-      <span class="count"><strong id="item-left">0</strong> items left</span>
-      <ul class="filters">
-        <li class="mr-3">
-          <a class="selected filtro " onclick="findAll()">All</a>
-        </li>
-        <li class="mr-3">
-          <a class="filtro" onclick="findActive()">Active</a>
-        </li>
-        <li class="mr-3">
-          <a class="filtro" onclick="findComplete()">Completed</a>
-        </li>
-      </ul>
-      <!-- Hidden if no completed items are left ↓ -->
-      <button class="clear-completed">Clear completed</button>
-    </div>
-  </section>
-  <section>
-    <footer class="d-flex flex-column align-items-center"> 
+
+    <footer class="d-flex flex-column align-items-center">
       <p>Double-click to edit a todo</p>
-      <p>Create by <a href="#">Preston Sego</a> - <a href="#">@NullVoxPopuli</a></p>
+      <p>
+        Create by <a href="#">Preston Sego</a> -
+        <a href="#">@NullVoxPopuli</a>
+      </p>
       <p>Part of <a href="#">ToDoMVC</a></p>
     </footer>
-  </section>
-  <script src="index.js"></script>
-</body>
+
+    <script src="index.js"></script>
+  </body>
 </html>
