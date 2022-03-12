@@ -1,17 +1,17 @@
-var todoList = document.querySelector("ul");
-var itemLeft = document.getElementById("item-left");
-var clearAll = document.getElementById("clear-completed");
-var checkAll = document.getElementById("label-check-all");
-todoList.addEventListener("click", function (event) {
-    if (event.target.classList.contains("remove")) {
-        event.target.parentElement.remove();
+const todoList = document.querySelector("ul");
+const itemLeft = document.getElementById("item-left");
+const clearAll = document.getElementById("clear-completed");
+const checkAll = document.getElementById("label-check-all");
+todoList.addEventListener("click", (event) => {
+    if ((event.target as HTMLTextAreaElement).classList.contains("remove")) {
+        (event.target as HTMLTextAreaElement).parentElement.remove();
         setCount();
     }
-    if (event.target.classList.contains("check")) {
+    if ((event.target as HTMLTextAreaElement).classList.contains("check")) {
         setCount();
     }
 });
-todoList.addEventListener("keypress", function (event) {
+todoList.addEventListener("keypress", (event) => {
     if (event.keyCode === 13) {
         event.preventDefault();
     }
@@ -42,14 +42,19 @@ function checkItemLeft() {
     }
 }
 function addItem(event) {
-    var valueInput = document.getElementById("input").value;
+    var valueInput = (<HTMLInputElement>document.getElementById("input")).value;
     var todoList = document.querySelector("ul");
     var letterNumber = /^[ ]+$/;
     if (event.keyCode == 13 &&
         valueInput.match(letterNumber) == null &&
         valueInput.length != 0) {
         var element = document.createElement("li");
-        element.innerHTML = "<div class=\"view\">\n        <input class=\"check\" type=\"checkbox\" id=\"btnCheck\">\n        <label  id=\"text-label\" contenteditable=\"true\">".concat(valueInput, "</label>\n        <button class=\"remove\"></button>\n        </div>\n        <input id=\"edit\" type=\"text\" class=\"edit hidden\" value=''>");
+        element.innerHTML = `<div class="view">
+        <input class="check" type="checkbox" id="btnCheck">
+        <label  id="text-label" contenteditable="true">${valueInput}</label>
+        <button class="remove"></button>
+        </div>
+        <input id="edit" type="text" class="edit hidden" value=''>`;
         document.querySelector("input").value = "";
         todoList.appendChild(element);
         setCount();
@@ -59,23 +64,23 @@ function removeItem(element) {
     element.remove();
     setCount();
 }
-document.querySelector(".clear-completed").addEventListener("click", function () {
+document.querySelector(".clear-completed").addEventListener("click", () => {
     document
         .querySelectorAll('div input[type="checkbox"]:checked')
-        .forEach(function (item) {
+        .forEach((item) => {
         removeItem(item.closest("li"));
     });
     checkItemLeft();
 });
 function findAll() {
     var allItems = todoList.querySelectorAll("li");
-    allItems.forEach(function (item) {
+    allItems.forEach((item) => {
         item.classList.remove("hidden");
     });
 }
 function findActive() {
     var allItems = todoList.querySelectorAll("li");
-    allItems.forEach(function (item) {
+    allItems.forEach((item) => {
         item.querySelector(":checked")
             ? item.classList.add("hidden")
             : item.classList.remove("hidden");
@@ -83,16 +88,16 @@ function findActive() {
 }
 function findComplete() {
     var allItems = todoList.querySelectorAll("li");
-    allItems.forEach(function (item) {
+    allItems.forEach((item) => {
         item.querySelector(":checked")
             ? item.classList.remove("hidden")
             : item.classList.add("hidden");
     });
 }
-document.getElementById("label-check-all").addEventListener("click", function () {
+document.getElementById("label-check-all").addEventListener("click", () => {
     var allCheckbox = document.querySelectorAll("input[type=checkbox]");
-    allCheckbox.forEach(function (element) {
-        element.checked = true;
+    allCheckbox.forEach((element) => {
+        (element as HTMLInputElement).checked = true;
     });
     setCount();
 });
