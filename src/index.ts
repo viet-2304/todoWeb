@@ -52,7 +52,7 @@ function addItem(event) {
         element.innerHTML = `<div class="view">
         <input class="check" type="checkbox" id="btnCheck">
         <label  id="text-label" contenteditable="true">${valueInput}</label>
-        <button class="remove" onclick="removeTodoItem()"></button>
+        <button class="remove"></button>
         </div>
         <input id="edit" type="text" class="edit hidden" value=''>`;
         document.querySelector("input").value = "";

@@ -49,7 +49,7 @@ function addItem(event) {
         valueInput.match(letterNumber) == null &&
         valueInput.length != 0) {
         var element = document.createElement("li");
-        element.innerHTML = "<div class=\"view\">\n        <input class=\"check\" type=\"checkbox\" id=\"btnCheck\">\n        <label  id=\"text-label\" contenteditable=\"true\">".concat(valueInput, "</label>\n        <button class=\"remove\" onclick=\"removeTodoItem()\"></button>\n        </div>\n        <input id=\"edit\" type=\"text\" class=\"edit hidden\" value=''>");
+        element.innerHTML = "<div class=\"view\">\n        <input class=\"check\" type=\"checkbox\" id=\"btnCheck\">\n        <label  id=\"text-label\" contenteditable=\"true\">".concat(valueInput, "</label>\n        <button class=\"remove\"></button>\n        </div>\n        <input id=\"edit\" type=\"text\" class=\"edit hidden\" value=''>");
         document.querySelector("input").value = "";
         todoList.appendChild(element);
         setCount();
