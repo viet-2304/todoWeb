@@ -1,8 +1,8 @@
-const todoList = document.querySelector("ul");
-const itemLeft = document.getElementById("item-left");
-const clearAll = document.getElementById("clear-completed");
-const checkAll = document.getElementById("label-check-all");
-todoList.addEventListener("click", (event) => {
+const todoList: any = document.querySelector("ul");
+const itemLeft: any = document.getElementById("item-left");
+const clearAll: any = document.getElementById("clear-completed");
+const checkAll: any = document.getElementById("label-check-all");
+todoList.addEventListener("click", (event: MouseEvent) : void => {
     if ((event.target as HTMLTextAreaElement).classList.contains("remove")) {
         (event.target as HTMLTextAreaElement).parentElement.remove();
         setCount();
@@ -11,14 +11,14 @@ todoList.addEventListener("click", (event) => {
         setCount();
     }
 });
-todoList.addEventListener("keypress", (event) => {
+todoList.addEventListener("keypress", (event: KeyboardEvent) : void => {
     if (event.keyCode === 13) {
         event.preventDefault();
     }
 });
-function setCount() {
-    var checkNumber = document.querySelectorAll('div input[type="checkbox"]:checked').length;
-    var allCheckBox = document.getElementsByClassName("check").length;
+function setCount() : void {
+    var checkNumber: any = document.querySelectorAll('div input[type="checkbox"]:checked').length;
+    var allCheckBox: any = document.getElementsByClassName("check").length;
     itemLeft.innerHTML = (allCheckBox - checkNumber).toString();
     if (checkNumber != 0) {
         clearAll.classList.remove("hidden");
@@ -28,10 +28,10 @@ function setCount() {
     }
     checkItemLeft();
 }
-function checkItemLeft() {
-    var element = document.getElementById("footer");
-    var checkNumber = document.querySelectorAll('div input[type="checkbox"]:checked').length;
-    var itemLeftText = document.getElementById("item-left").innerHTML;
+function checkItemLeft() : void{
+    var element: any = document.getElementById("footer");
+    var checkNumber: any = document.querySelectorAll('div input[type="checkbox"]:checked').length;
+    var itemLeftText: any = document.getElementById("item-left").innerHTML;
     if (itemLeftText !== "0") {
         element.classList.remove("hidden");
         checkAll.classList.remove("hidden");
@@ -41,14 +41,14 @@ function checkItemLeft() {
         checkAll.classList.add("hidden");
     }
 }
-function addItem(event) {
-    var valueInput = (<HTMLInputElement>document.getElementById("input")).value;
-    var todoList = document.querySelector("ul");
+function addItem(event: KeyboardEvent) : void {
+    var valueInput: String = (<HTMLInputElement>document.getElementById("input")).value;
+    var todoList: any = document.querySelector("ul");
     var letterNumber = /^[ ]+$/;
     if (event.keyCode == 13 &&
         valueInput.match(letterNumber) == null &&
         valueInput.length != 0) {
-        var element = document.createElement("li");
+        var element: any = document.createElement("li");
         element.innerHTML = `<div class="view">
         <input class="check" type="checkbox" id="btnCheck">
         <label  id="text-label" contenteditable="true">${valueInput}</label>
@@ -60,11 +60,11 @@ function addItem(event) {
         setCount();
     }
 }
-function removeItem(element) {
+function removeItem(element: Element) : void {
     element.remove();
     setCount();
 }
-document.querySelector(".clear-completed").addEventListener("click", () => {
+document.querySelector(".clear-completed").addEventListener("click", () : void => {
     document
         .querySelectorAll('div input[type="checkbox"]:checked')
         .forEach((item) => {
@@ -72,30 +72,30 @@ document.querySelector(".clear-completed").addEventListener("click", () => {
     });
     checkItemLeft();
 });
-function findAll() {
+function findAll() : void{
     var allItems = todoList.querySelectorAll("li");
     allItems.forEach((item) => {
         item.classList.remove("hidden");
     });
 }
-function findActive() {
-    var allItems = todoList.querySelectorAll("li");
+function findActive() : void {
+    var allItems: any = todoList.querySelectorAll("li");
     allItems.forEach((item) => {
         item.querySelector(":checked")
             ? item.classList.add("hidden")
             : item.classList.remove("hidden");
     });
 }
-function findComplete() {
-    var allItems = todoList.querySelectorAll("li");
+function findComplete() : void {
+    var allItems: any = todoList.querySelectorAll("li");
     allItems.forEach((item) => {
         item.querySelector(":checked")
             ? item.classList.remove("hidden")
             : item.classList.add("hidden");
     });
 }
-document.getElementById("label-check-all").addEventListener("click", () => {
-    var allCheckbox = document.querySelectorAll("input[type=checkbox]");
+document.getElementById("label-check-all").addEventListener("click", () : void => {
+    var allCheckbox: any = document.querySelectorAll("input[type=checkbox]");
     allCheckbox.forEach((element) => {
         (element as HTMLInputElement).checked = true;
     });
