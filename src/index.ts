@@ -1,10 +1,12 @@
 import {toDos} from "./todo.js"
+const inputText: HTMLElement = document.getElementById("input")
 const todoList: HTMLElement = document.querySelector("ul");
 const itemLeft: HTMLElement = document.getElementById("item-left");
 const clearAll: HTMLElement = document.getElementById("clear-completed");
 const checkAll: HTMLElement = document.getElementById("label-check-all");
 const listToDos = [];
 var dataInLocalStorage: string;
+
 todoList.addEventListener("click", (event: MouseEvent): void => {
   if ((event.target as HTMLTextAreaElement).classList.contains("remove")) {
     (event.target as HTMLTextAreaElement).parentElement.remove();
@@ -14,11 +16,13 @@ todoList.addEventListener("click", (event: MouseEvent): void => {
     setCount();
   }
 });
+
 todoList.addEventListener("keypress", (event: KeyboardEvent): void => {
   if (event.keyCode === 13) {
     event.preventDefault();
   }
 });
+
 function setCount(): void {
   var checkNumber: number = document.querySelectorAll(
     'div input[type="checkbox"]:checked'
@@ -32,6 +36,7 @@ function setCount(): void {
   }
   checkItemLeft();
 }
+
 function checkItemLeft(): void {
   var element: HTMLElement = document.getElementById("footer");
   var checkNumber: number = document.querySelectorAll(
@@ -47,6 +52,7 @@ function checkItemLeft(): void {
     checkAll.classList.add("hidden");
   }
 }
+
 function addItem(event: KeyboardEvent): void {
   var valueInput: string = (<HTMLInputElement>document.getElementById("input")).value;
     console.log(valueInput)
@@ -71,10 +77,12 @@ function addItem(event: KeyboardEvent): void {
     setCount();
   }
 }
+
 function removeItem(element: Element): void {
   element.remove();
   setCount();
 }
+
 document
   .querySelector(".clear-completed")
   .addEventListener("click", (): void => {
@@ -85,6 +93,7 @@ document
       });
     checkItemLeft();
   });
+
 function findAll(): void {
   var allItems: NodeListOf<HTMLLIElement> = todoList.querySelectorAll("li");
   allItems.forEach((item) => {
@@ -92,6 +101,7 @@ function findAll(): void {
   });
   changeSelectFilter("find-all");
 }
+
 function findActive(): void {
   var allItems: NodeListOf<HTMLLIElement> = todoList.querySelectorAll("li");
   allItems.forEach((item) => {
@@ -101,6 +111,7 @@ function findActive(): void {
   });
   changeSelectFilter("find-active");
 }
+
 function findComplete(): void {
   var allItems: NodeListOf<HTMLLIElement> = todoList.querySelectorAll("li");
   allItems.forEach((item) => {
@@ -110,6 +121,7 @@ function findComplete(): void {
   });
   changeSelectFilter("find-complete");
 }
+
 function changeSelectFilter(choose: String): void {
   var active: HTMLElement = document.getElementById("find-active");
   var complete: HTMLElement = document.getElementById("find-complete");
@@ -130,6 +142,7 @@ function changeSelectFilter(choose: String): void {
     all.classList.remove("selected");
   }
 }
+
 document
   .getElementById("label-check-all")
   .addEventListener("click", (): void => {
@@ -141,8 +154,6 @@ document
     });
     setCount();
   });
-
-
 
 function saveToDos(item:string , isComplete: boolean): void {
    var todo = new toDos(item, isComplete)

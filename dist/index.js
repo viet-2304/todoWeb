@@ -1,6 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var todo_js_1 = require("./todo.js");
+var inputText = document.getElementById("input");
 var todoList = document.querySelector("ul");
 var itemLeft = document.getElementById("item-left");
 var clearAll = document.getElementById("clear-completed");

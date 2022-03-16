@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.toDos = void 0;
 var toDos = /** @class */ (function () {
     function toDos(item, isComplete) {
