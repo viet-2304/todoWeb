@@ -53,6 +53,11 @@ function checkItemLeft(): void {
   }
 }
 
+inputText.addEventListener("keypress" ,(event: KeyboardEvent) :void => {
+  console.log("hahaha")
+  addItem(event)
+
+})
 function addItem(event: KeyboardEvent): void {
   var valueInput: string = (<HTMLInputElement>document.getElementById("input")).value;
     console.log(valueInput)

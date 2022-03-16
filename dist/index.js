@@ -47,6 +47,10 @@ function checkItemLeft() {
         checkAll.classList.add("hidden");
     }
 }
+inputText.addEventListener("keypress", function (event) {
+    console.log("jahaha");
+    addItem(event);
+});
 function addItem(event) {
     var valueInput = document.getElementById("input").value;
     console.log(valueInput);
