@@ -1,4 +1,4 @@
-class toDos {
+export class toDos {
      private item: string;
      private isComplete: boolean;
 
@@ -7,4 +7,3 @@ class toDos {
           this.isComplete = isComplete;
      }
 }
-export default toDos

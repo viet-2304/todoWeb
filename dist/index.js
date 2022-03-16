@@ -1,5 +1,6 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+var todo_js_1 = require("./todo.js");
 var todoList = document.querySelector("ul");
 var itemLeft = document.getElementById("item-left");
 var clearAll = document.getElementById("clear-completed");
@@ -129,9 +130,8 @@ document
     });
     setCount();
 });
-var todo_js_1 = require("./todo.js");
 function saveToDos(item, isComplete) {
-    var todo = new todo_js_1["default"](item, isComplete);
+    var todo = new todo_js_1.toDos(item, isComplete);
     listToDos.push(todo);
     window.localStorage.setItem("toDos", JSON.stringify(listToDos));
 }
@@ -142,46 +142,3 @@ function changeState(position, state) {
 function getLocalStorage() {
     return window.localStorage.getItem("toDos");
 }
-// window.onload = function () {
-//   var list = JSON.parse(window.localStorage.getItem("toDos"));
-//   console.log(getLocalStorage());
-//   dataInLocalStorage = getLocalStorage();
-//   if (list != null) {
-//     list.forEach((ele) => {
-//       var element: HTMLLIElement = document.createElement("li");
-//       var divView: HTMLDivElement = document.createElement("div");
-//       var inputCheck: HTMLInputElement = document.createElement("input");
-//       var lbText: HTMLLabelElement = document.createElement("label");
-//       var btRemove: HTMLButtonElement = document.createElement("button");
-//       divView.classList.add("view");
-//       inputCheck.classList.add("check");
-//       inputCheck.setAttribute("type", "checkbox");
-//       inputCheck.setAttribute("id", "btnCheck");
-//       inputCheck.setAttribute("onclick", "checkIsComplete()");
-//       if (ele.isComplete == "true") {
-//         inputCheck.checked = true;
-//       }
-//       lbText.setAttribute("id", "text-label");
-//       lbText.setAttribute("contenteditable", "true");
-//       lbText.textContent = ele.item;
-//       btRemove.classList.add("remove");
-//       divView.appendChild(inputCheck);
-//       divView.appendChild(lbText);
-//       divView.appendChild(btRemove);
-//       element.appendChild(divView);
-//       todoList.appendChild(element);
-//     });
-//     setCount();
-//   }
-// };
-// window.onbeforeunload = function () {
-//   var listData;
-//   if (dataInLocalStorage == null) {
-//     listData = window.localStorage.getItem("toDos");
-//   } else {
-//     listData = dataInLocalStorage.concat(
-//       JSON.stringify(window.localStorage.getItem("toDos"))
-//     );
-//   }
-//   window.localStorage.setItem("toDos", listData);
-// };

@@ -1,3 +1,4 @@
+import {toDos} from "./todo.js"
 const todoList: HTMLElement = document.querySelector("ul");
 const itemLeft: HTMLElement = document.getElementById("item-left");
 const clearAll: HTMLElement = document.getElementById("clear-completed");
@@ -141,7 +142,7 @@ document
     setCount();
   });
 
-import toDos from "./todo.js"
+
 
 function saveToDos(item:string , isComplete: boolean): void {
    var todo = new toDos(item, isComplete)
@@ -157,51 +158,3 @@ function changeState(position: number, state: boolean): void {
 function getLocalStorage(): string {
   return window.localStorage.getItem("toDos");
 }
-
-// window.onload = function () {
-//   var list = JSON.parse(window.localStorage.getItem("toDos"));
-//   console.log(getLocalStorage());
-//   dataInLocalStorage = getLocalStorage();
-//   if (list != null) {
-//     list.forEach((ele) => {
-//       var element: HTMLLIElement = document.createElement("li");
-//       var divView: HTMLDivElement = document.createElement("div");
-//       var inputCheck: HTMLInputElement = document.createElement("input");
-//       var lbText: HTMLLabelElement = document.createElement("label");
-//       var btRemove: HTMLButtonElement = document.createElement("button");
-
-//       divView.classList.add("view");
-//       inputCheck.classList.add("check");
-//       inputCheck.setAttribute("type", "checkbox");
-//       inputCheck.setAttribute("id", "btnCheck");
-//       inputCheck.setAttribute("onclick", "checkIsComplete()");
-//       if (ele.isComplete == "true") {
-//         inputCheck.checked = true;
-//       }
-//       lbText.setAttribute("id", "text-label");
-//       lbText.setAttribute("contenteditable", "true");
-//       lbText.textContent = ele.item;
-//       btRemove.classList.add("remove");
-
-//       divView.appendChild(inputCheck);
-//       divView.appendChild(lbText);
-//       divView.appendChild(btRemove);
-//       element.appendChild(divView);
-
-//       todoList.appendChild(element);
-//     });
-//     setCount();
-//   }
-// };
-
-// window.onbeforeunload = function () {
-//   var listData;
-//   if (dataInLocalStorage == null) {
-//     listData = window.localStorage.getItem("toDos");
-//   } else {
-//     listData = dataInLocalStorage.concat(
-//       JSON.stringify(window.localStorage.getItem("toDos"))
-//     );
-//   }
-//   window.localStorage.setItem("toDos", listData);
-// };
