@@ -2,5 +2,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "dist",
+    "target": "ES6",
+    "module": "es2015"
     }
 }
