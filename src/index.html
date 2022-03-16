@@ -26,20 +26,22 @@
       <section class="main">
         <input id="check-all" class="check-all" type="checkbox" />
         <label class="hidden" id="label-check-all">Mark all as complete</label>
-        <ul class="todo-list"></ul>
+        <ul id="todo-list" class="todo-list"></ul>
       </section>
 
       <div class="footer-section hidden" id="footer">
         <span class="count"><strong id="item-left">0</strong> items left</span>
         <ul class="filters">
           <li class="mr-3">
-            <a class="selected filtro" onclick="findAll()">All</a>
+            <a id="find-all" class="selected filtro" onclick="findAll()">All</a>
           </li>
           <li class="mr-3">
-            <a class="filtro" onclick="findActive()">Active</a>
+            <a id="find-active" class="filtro" onclick="findActive()">Active</a>
           </li>
           <li class="mr-3">
-            <a class="filtro" onclick="findComplete()">Completed</a>
+            <a id="find-complete" class="filtro" onclick="findComplete()"
+              >Completed</a
+            >
           </li>
         </ul>
         <button class="clear-completed hidden" id="clear-completed">
@@ -47,7 +49,7 @@
         </button>
       </div>
     </section>
-    
+
     <footer class="d-flex flex-column align-items-center">
       <p>Double-click to edit a todo</p>
       <p>
