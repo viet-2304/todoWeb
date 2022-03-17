@@ -15,12 +15,8 @@
   </head>
   <body>
     <section class="todo">
-      <h1 class="mt-4">Todos</h1>
-      <input
-        class="new-todo"
-        placeholder="What need to be done?"
-        id="input"
-      />
+      <h1 class="mt-4">ToDos</h1>
+      <input class="new-todo" placeholder="What need to be done?" id="input" />
 
       <section class="main">
         <input id="check-all" class="check-all" type="checkbox" />
@@ -32,20 +28,16 @@
         <span class="count"><strong id="item-left">0</strong> items left</span>
         <ul class="filters">
           <li class="mr-3">
-            <a id="find-all" class="selected filtro" onclick="findAll()">All</a>
+            <a id="find-all" class="selected filtro">All</a>
           </li>
           <li class="mr-3">
-            <a id="find-active" class="filtro" onclick="findActive()">Active</a>
+            <a id="find-active" class="filtro">Active</a>
           </li>
           <li class="mr-3">
-            <a id="find-complete" class="filtro" onclick="findComplete()"
-              >Completed</a
-            >
+            <a id="find-complete" class="filtro">Completed</a>
           </li>
         </ul>
-        <button class="clear-completed hidden" id="clear-completed">
-          Clear completed
-        </button>
+        <button class="clear-completed hidden" id="clear-completed">Clear completed</button>
       </div>
     </section>
 
