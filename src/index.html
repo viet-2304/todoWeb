@@ -15,39 +15,32 @@
   </head>
   <body>
     <section class="todo">
-      <h1 class="mt-4">Todos</h1>
-      <input
-        class="new-todo"
-        placeholder="What need to be done?"
-        id="input"
-        onkeypress="addItem(event)"
-      />
+      <h1 class="mt-4">ToDos</h1>
+      <input class="new-todo" placeholder="What need to be done?" id="input" />
 
       <section class="main">
         <input id="check-all" class="check-all" type="checkbox" />
         <label class="hidden" id="label-check-all">Mark all as complete</label>
-        <ul class="todo-list"></ul>
+        <ul id="todo-list" class="todo-list"></ul>
       </section>
 
       <div class="footer-section hidden" id="footer">
         <span class="count"><strong id="item-left">0</strong> items left</span>
         <ul class="filters">
           <li class="mr-3">
-            <a class="selected filtro" onclick="findAll()">All</a>
+            <a id="find-all" class="selected filtro">All</a>
           </li>
           <li class="mr-3">
-            <a class="filtro" onclick="findActive()">Active</a>
+            <a id="find-active" class="filtro">Active</a>
           </li>
           <li class="mr-3">
-            <a class="filtro" onclick="findComplete()">Completed</a>
+            <a id="find-complete" class="filtro">Completed</a>
           </li>
         </ul>
-        <button class="clear-completed hidden" id="clear-completed">
-          Clear completed
-        </button>
+        <button class="clear-completed hidden" id="clear-completed">Clear completed</button>
       </div>
     </section>
-    
+
     <footer class="d-flex flex-column align-items-center">
       <p>Double-click to edit a todo</p>
       <p>
@@ -57,6 +50,6 @@
       <p>Part of <a href="#">ToDoMVC</a></p>
     </footer>
 
-    <script src="../dist/index.js"></script>
+    <script type="module" src="../dist/index.js"></script>
   </body>
 </html>
