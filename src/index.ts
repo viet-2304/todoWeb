@@ -1,5 +1,5 @@
-import { toDos } from './todo.js';
-
+import { toDo } from './class/toDo.js';
+import {ToDos} from './class/toDos.js';
 const inputText: HTMLElement = document.getElementById('input');
 const todoListView: HTMLElement = document.querySelector('ul');
 const itemLeft: HTMLElement = document.getElementById('item-left');
@@ -10,7 +10,7 @@ const findActive: HTMLElement = document.getElementById('find-active');
 const findComplete: HTMLElement = document.getElementById('find-complete');
 
 var listToDos = [];
-
+const toDoList = new ToDos;
 //function remove item and check todo
 todoListView.addEventListener('click', (event: MouseEvent): void => {
   if ((event.target as HTMLTextAreaElement).classList.contains('remove')) {
@@ -75,7 +75,8 @@ function addItem(event: KeyboardEvent): void {
     var element: any = document.createElement('li');
     element.innerHTML = newItem;
     document.querySelector('input').value = '';
-    todoListView.appendChild(element);
+    var item = new toDo(valueInput, false)
+    toDoList.addNewToDo(item)
     setCount();
   }
 }
@@ -85,6 +86,7 @@ function removeItem(element: Element): void {
   setCount();
 }
 
+// clear all complete
 document.querySelector('.clear-completed').addEventListener('click', (): void => {
   document.querySelectorAll('div input[type="checkbox"]:checked').forEach((item) => {
     removeItem(item.closest('li'));
@@ -92,6 +94,7 @@ document.querySelector('.clear-completed').addEventListener('click', (): void =>
   checkItemLeft();
 });
 
+//find all
 findAll.addEventListener('click', (event: MouseEvent): void => {
   var allItems: NodeListOf<HTMLLIElement> = todoListView.querySelectorAll('li');
   allItems.forEach((item) => {
@@ -100,6 +103,7 @@ findAll.addEventListener('click', (event: MouseEvent): void => {
   changeSelectFilter('find-all');
 });
 
+//find active
 findActive.addEventListener('click', (event: MouseEvent): void => {
   var allItems: NodeListOf<HTMLLIElement> = todoListView.querySelectorAll('li');
   allItems.forEach((item) => {
@@ -108,6 +112,7 @@ findActive.addEventListener('click', (event: MouseEvent): void => {
   changeSelectFilter('find-active');
 });
 
+ //find complete
 findComplete.addEventListener('click', (event: MouseEvent): void => {
   var allItems: NodeListOf<HTMLLIElement> = todoListView.querySelectorAll('li');
   allItems.forEach((item) => {
@@ -146,8 +151,7 @@ document.getElementById('label-check-all').addEventListener('click', (): void =>
 });
 
 window.onload = (event) => {
-  var toDosInLocalStorage = window.localStorage.getItem('toDos');
-
+  var toDosInLocalStorage = toDoList.getDataInLocalStorage();
   if (toDosInLocalStorage == null) {
   } else {
     JSON.parse(toDosInLocalStorage).forEach((element) => {
@@ -186,19 +190,19 @@ window.onload = (event) => {
   }
 };
 
-window.onbeforeunload = (event) => {
-  var allItemView = document.querySelectorAll("div[class='view']");
-  listToDos = [];
-  if (allItemView.length == 0) {
-    localStorage.clear();
-  }
-  allItemView.forEach((element) => {
-    var isComplete: boolean = false;
-    if (element.querySelector(':checked')) {
-      isComplete = true;
-    }
-    var todo = new toDos(element.textContent, isComplete);
-    listToDos.push(todo);
-    localStorage.setItem('toDos', JSON.stringify(listToDos));
-  });
-};
+// window.onbeforeunload = (event) => {
+//   var allItemView = document.querySelectorAll("div[class='view']");
+//   listToDos = [];
+//   if (allItemView.length == 0) {
+//     localStorage.clear();
+//   }
+//   allItemView.forEach((element) => {
+//     var isComplete: boolean = false;
+//     if (element.querySelector(':checked')) {
+//       isComplete = true;
+//     }
+//     var todo = new toDo(element.textContent, isComplete);
+//     listToDos.push(todo);
+//     localStorage.setItem('toDos', JSON.stringify(listToDos));
+//   });
+// };

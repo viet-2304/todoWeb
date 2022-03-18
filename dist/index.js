@@ -1,4 +1,5 @@
-import { toDos } from './todo.js';
+import { toDo } from './class/toDo.js';
+import { ToDos } from './class/toDos.js';
 const inputText = document.getElementById('input');
 const todoListView = document.querySelector('ul');
 const itemLeft = document.getElementById('item-left');
@@ -8,6 +9,7 @@ const findAll = document.getElementById('find-all');
 const findActive = document.getElementById('find-active');
 const findComplete = document.getElementById('find-complete');
 var listToDos = [];
+const toDoList = new ToDos;
 //function remove item and check todo
 todoListView.addEventListener('click', (event) => {
     if (event.target.classList.contains('remove')) {
@@ -68,7 +70,8 @@ function addItem(event) {
         var element = document.createElement('li');
         element.innerHTML = newItem;
         document.querySelector('input').value = '';
-        todoListView.appendChild(element);
+        var item = new toDo(valueInput, false);
+        toDoList.addNewToDo(item);
         setCount();
     }
 }
@@ -131,7 +134,7 @@ document.getElementById('label-check-all').addEventListener('click', () => {
     setCount();
 });
 window.onload = (event) => {
-    var toDosInLocalStorage = window.localStorage.getItem('toDos');
+    var toDosInLocalStorage = toDoList.getDataInLocalstorage();
     if (toDosInLocalStorage == null) {
     }
     else {
@@ -164,19 +167,19 @@ window.onload = (event) => {
         setCount();
     }
 };
-window.onbeforeunload = (event) => {
-    var allItemView = document.querySelectorAll("div[class='view']");
-    listToDos = [];
-    if (allItemView.length == 0) {
-        localStorage.clear();
-    }
-    allItemView.forEach((element) => {
-        var isComplete = false;
-        if (element.querySelector(':checked')) {
-            isComplete = true;
-        }
-        var todo = new toDos(element.textContent, isComplete);
-        listToDos.push(todo);
-        localStorage.setItem('toDos', JSON.stringify(listToDos));
-    });
-};
+// window.onbeforeunload = (event) => {
+//   var allItemView = document.querySelectorAll("div[class='view']");
+//   listToDos = [];
+//   if (allItemView.length == 0) {
+//     localStorage.clear();
+//   }
+//   allItemView.forEach((element) => {
+//     var isComplete: boolean = false;
+//     if (element.querySelector(':checked')) {
+//       isComplete = true;
+//     }
+//     var todo = new toDo(element.textContent, isComplete);
+//     listToDos.push(todo);
+//     localStorage.setItem('toDos', JSON.stringify(listToDos));
+//   });
+// };
