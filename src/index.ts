@@ -3,7 +3,7 @@ import { toDo } from './class/toDo.js';
 class toDoApp {
   private listToDo: toDo[] = [];
 
-  constructor() {
+  public constructor() {
     this.dataInit();
   }
 
@@ -15,11 +15,9 @@ class toDoApp {
   private renderData(): void {
     const data = JSON.parse(localStorage.getItem('toDos'));
     if (data != null) {
-      
-      this.listToDo = data;
-      console.log(typeof(this.listToDo));
       data.forEach((element) => {
         this.createNewItem(element.item, element.isComplete);
+        this.listToDo.push(new toDo(element.item, element.isComplete))
       });
       this.setCount();
       this.checkItemLeft();
@@ -111,18 +109,14 @@ class toDoApp {
   }
 
   public addNewToDo(item: string, state: boolean): void {
-    const newToDo = new toDo(item, state);
-    this.listToDo.push(newToDo);
+    this.listToDo.push(new toDo(item, state));
     this.saveToDo();
   }
 
   public changeStateToDo(ele: HTMLElement): void {
     var state: boolean = this.getStateOfToDo(ele);
     var index: number = this.getIndexOfToDo(ele);
-    var todoChange: toDo = this.listToDo[index];
-   // this.listToDo[index].isComplete =state;
-   this.listToDo[index].getItem() ;
-    console.log(this.listToDo[index].getItem())
+    this.listToDo[index].setState(state) ;
     this.saveToDo();
   }
 
