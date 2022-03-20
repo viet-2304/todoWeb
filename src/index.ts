@@ -77,11 +77,18 @@ class toDoApp {
     });
     lbText.setAttribute('id', 'text-label');
     lbText.setAttribute('contenteditable', 'true');
-
     lbText.textContent = item;
     if (isComplete) {
       inputCheck.setAttribute('checked', 'checked');
     }
+
+    lbText.addEventListener('keypress', (event: KeyboardEvent): void => {
+      if (event.keyCode === 13) {
+        lbText.contentEditable = 'false';
+        this.changeItemToDo((event.target as HTMLTextAreaElement).closest('li'));
+        lbText.contentEditable = 'true';
+      }
+    });
 
     divView.appendChild(inputCheck);
     divView.appendChild(lbText);
@@ -121,6 +128,20 @@ class toDoApp {
     var state: boolean = this.getStateOfToDo(ele);
     var index: number = this.getIndexOfToDo(ele);
     this.listToDo[index].isComplete = state;
+    this.saveToDo();
+  }
+
+  changeAllStateToDo(state: boolean) {
+    this.listToDo.forEach((element) => {
+      element.isComplete = state;
+    });
+    this.saveToDo();
+  }
+
+  changeItemToDo(ele: HTMLElement) {
+    var valueChange = ele.querySelector('label').innerHTML;
+    var index: number = this.getIndexOfToDo(ele);
+    this.listToDo[index].item = valueChange;
     this.saveToDo();
   }
 
@@ -230,10 +251,12 @@ class toDoApp {
       if (this.checkIfToDoIsComplete()) {
         allCheckbox.forEach((element) => {
           (element as HTMLInputElement).checked = false;
+          this.changeAllStateToDo(false);
         });
       } else {
         allCheckbox.forEach((element) => {
           (element as HTMLInputElement).checked = true;
+          this.changeAllStateToDo(true);
         });
       }
       this.setCount();
@@ -242,7 +265,7 @@ class toDoApp {
 
   //If have any todo isn't complete => return false
   checkIfToDoIsComplete(): boolean {
-    var allCheckbox: NodeListOf<Element> = document.querySelectorAll('input[type=checkbox]');
+    var allCheckbox: NodeListOf<Element> = document.querySelectorAll('div input[type=checkbox]');
     for (let element of allCheckbox) {
       if ((element as HTMLInputElement).checked == false) {
         return false;
@@ -255,6 +278,7 @@ class toDoApp {
     var clearAllComplete = document.getElementById('clear-completed');
     clearAllComplete.addEventListener('click', (): void => {
       document.querySelectorAll('div input[type="checkbox"]:checked').forEach((item) => {
+        this.removeToDo(item.closest('li'));
         item.closest('li').remove();
       });
       this.setCount();
