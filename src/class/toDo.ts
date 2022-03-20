@@ -1,4 +1,4 @@
-export class toDos {
+export class toDo {
      private item: string;
      private isComplete: boolean;
 
