@@ -1,42 +1,34 @@
 import { toDo } from './class/toDo.js';
 
 class toDoApp {
-  private listToDo = [];
+  private listToDo: toDo[] = [];
 
-  constructor() {
+  public constructor() {
     this.dataInit();
   }
 
-  dataInit(): void {
+  private dataInit(): void {
     this.renderForm();
     this.renderData();
   }
 
-  renderData(): void {
+  private renderData(): void {
     const data = JSON.parse(localStorage.getItem('toDos'));
     if (data != null) {
       data.forEach((element) => {
         this.createNewItem(element.item, element.isComplete);
+        this.listToDo.push(new toDo(element.item, element.isComplete))
       });
       this.setCount();
       this.checkItemLeft();
     }
   }
 
-  renderForm(): void {
-    var data = JSON.parse(localStorage.getItem('toDos'));
-    if (data != null) {
-      data.forEach((element) => {
-        this.listToDo.push(element);
-      });
-    } else {
-      this.listToDo = [];
-    }
+  private renderForm(): void {  
     const input: HTMLElement = document.getElementById('input');
     input.addEventListener('keypress', (event: KeyboardEvent): void => {
       var valueInput: string = (<HTMLInputElement>input).value;
-      console.log(valueInput);
-      var letterNumber = /^[ ]+$/;
+      var letterNumber: RegExp = /^[ ]+$/;
       if (event.keyCode == 13 && valueInput.match(letterNumber) == null && valueInput.length != 0) {
         this.createNewItem(valueInput, false);
         document.querySelector('input').value = '';
@@ -52,13 +44,13 @@ class toDoApp {
     this.checkAllToDo();
   }
 
-  createNewItem(item: string, isComplete: boolean): void {
-    var todoListView: HTMLElement = document.querySelector('ul');
-    var card = document.createElement('li');
-    var divView = document.createElement('div');
-    var inputCheck = document.createElement('input');
-    var lbText = document.createElement('label');
-    var btnRemove = document.createElement('button');
+  public createNewItem(item: string, isComplete: boolean): void {
+    var toDoListView: HTMLElement = document.querySelector('ul');
+    var card: HTMLElement = document.createElement('li');
+    var divView: HTMLElement = document.createElement('div');
+    var inputCheck: HTMLElement = document.createElement('input');
+    var lbText: HTMLElement = document.createElement('label');
+    var btnRemove: HTMLElement = document.createElement('button');
 
     divView.classList.add('view');
     inputCheck.classList.add('check');
@@ -95,22 +87,20 @@ class toDoApp {
     divView.appendChild(btnRemove);
     card.appendChild(divView);
 
-    todoListView.appendChild(card);
+    toDoListView.appendChild(card);
   }
 
-  //get index of element li in ul
-  getIndexOfToDo(ele: HTMLElement): number {
-    var nodes = Array.from(ele.closest('ul').children);
-    var index = nodes.indexOf(ele);
+  public getIndexOfToDo(ele: HTMLElement): number {
+    var nodes: Element[] = Array.from(ele.closest('ul').children);
+    var index: number = nodes.indexOf(ele);
     return index;
   }
 
-  //get state of element li in ul (is complete or not)
-  getStateOfToDo(ele: HTMLElement): boolean {
+  public getStateOfToDo(ele: HTMLElement): boolean {
     return (<HTMLInputElement>ele.querySelector("input[type='checkbox']")).checked;
   }
 
-  removeToDo(ele: HTMLElement) {
+  public removeToDo(ele: HTMLElement): void {
     for (let i: number = 0; i < this.listToDo.length; i++) {
       this.listToDo.splice(this.getIndexOfToDo(ele), 1);
       break;
@@ -118,38 +108,37 @@ class toDoApp {
     this.saveToDo();
   }
 
-  addNewToDo(item: string, state: boolean): void {
-    const newtoDo = new toDo(item, state);
-    this.listToDo.push(newtoDo);
+  public addNewToDo(item: string, state: boolean): void {
+    this.listToDo.push(new toDo(item, state));
     this.saveToDo();
   }
 
-  changeStateToDo(ele: HTMLElement) {
+  public changeStateToDo(ele: HTMLElement): void {
     var state: boolean = this.getStateOfToDo(ele);
     var index: number = this.getIndexOfToDo(ele);
-    this.listToDo[index].isComplete = state;
+    this.listToDo[index].setState(state) ;
     this.saveToDo();
   }
 
-  changeAllStateToDo(state: boolean) {
+  public changeAllStateToDo(state: boolean): void {
     this.listToDo.forEach((element) => {
-      element.isComplete = state;
+      element.setState(state);
     });
     this.saveToDo();
   }
 
-  changeItemToDo(ele: HTMLElement) {
-    var valueChange = ele.querySelector('label').innerHTML;
+  public changeItemToDo(ele: HTMLElement): void {
+    var valueChange: string = ele.querySelector('label').innerHTML;
     var index: number = this.getIndexOfToDo(ele);
-    this.listToDo[index].item = valueChange;
+    this.listToDo[index].setItem(valueChange);
     this.saveToDo();
   }
 
-  saveToDo(): void {
+  public saveToDo(): void {
     localStorage.setItem('toDos', JSON.stringify(this.listToDo));
   }
 
-  checkItemLeft(): void {
+  public checkItemLeft(): void {
     var checkAll: HTMLElement = document.getElementById('label-check-all');
     var element: HTMLElement = document.getElementById('footer');
     var checkNumber: number = document.querySelectorAll('ul[id="todo-list"] li').length;
@@ -164,11 +153,11 @@ class toDoApp {
     }
   }
 
-  setCount(): void {
+  public setCount(): void {
     var itemLeft: HTMLElement = document.getElementById('item-left');
     var clearAll: HTMLElement = document.getElementById('clear-completed');
-    var allItemView = document.querySelectorAll("div[class='view']");
-    var listLabel = [];
+    var allItemView: NodeListOf<Element> = document.querySelectorAll("div[class='view']");
+    var listLabel: string[]= [];
     allItemView.forEach((element) => {
       listLabel.push(element.textContent);
     });
@@ -185,7 +174,7 @@ class toDoApp {
     this.checkItemLeft();
   }
   //change UI when find todo active or complete or find all
-  changeSelectFilter(choose: String): void {
+  public changeSelectFilter(choose: String): void {
     var active: HTMLElement = document.getElementById('find-active');
     var complete: HTMLElement = document.getElementById('find-complete');
     var all: HTMLElement = document.getElementById('find-all');
@@ -206,7 +195,7 @@ class toDoApp {
     }
   }
 
-  findAllToDo(): void {
+  public findAllToDo(): void {
     const findAll: HTMLElement = document.getElementById('find-all');
     findAll.addEventListener('click', () => {
       var allItems: NodeListOf<HTMLLIElement> = document.querySelectorAll('ul[id="todo-list"] li');
@@ -217,11 +206,10 @@ class toDoApp {
     });
   }
 
-  findActiveToDo(): void {
+  public findActiveToDo(): void {
     const findActive: HTMLElement = document.getElementById('find-active');
     findActive.addEventListener('click', (): void => {
       var allItems: NodeListOf<HTMLLIElement> = document.querySelectorAll('ul[id="todo-list"] li');
-      console.log(allItems);
       allItems.forEach((item) => {
         item.querySelector(':checked')
           ? item.classList.add('hidden')
@@ -231,8 +219,8 @@ class toDoApp {
     });
   }
 
-  findCompleteToDo(): void {
-    var allComplete = document.getElementById('find-complete');
+  public findCompleteToDo(): void {
+    var allComplete: HTMLElement = document.getElementById('find-complete');
     allComplete.addEventListener('click', (): void => {
       var allItems: NodeListOf<HTMLLIElement> = document.querySelectorAll('ul[id="todo-list"] li');
       allItems.forEach((item) => {
@@ -244,8 +232,8 @@ class toDoApp {
     });
   }
 
-  checkAllToDo(): void {
-    var checkAllItem = document.getElementById('label-check-all');
+  public checkAllToDo(): void {
+    var checkAllItem: HTMLElement = document.getElementById('label-check-all');
     checkAllItem.addEventListener('click', (): void => {
       var allCheckbox: NodeListOf<Element> = document.querySelectorAll('input[type=checkbox]');
       if (this.checkIfToDoIsComplete()) {
@@ -263,8 +251,7 @@ class toDoApp {
     });
   }
 
-  //If have any todo isn't complete => return false
-  checkIfToDoIsComplete(): boolean {
+  public checkIfToDoIsComplete(): boolean {
     var allCheckbox: NodeListOf<Element> = document.querySelectorAll('div input[type=checkbox]');
     for (let element of allCheckbox) {
       if ((element as HTMLInputElement).checked == false) {
@@ -274,8 +261,8 @@ class toDoApp {
     return true;
   }
 
-  clearAllComplete(): void {
-    var clearAllComplete = document.getElementById('clear-completed');
+  public clearAllComplete(): void {
+    var clearAllComplete: HTMLElement = document.getElementById('clear-completed');
     clearAllComplete.addEventListener('click', (): void => {
       document.querySelectorAll('div input[type="checkbox"]:checked').forEach((item) => {
         this.removeToDo(item.closest('li'));
@@ -288,4 +275,3 @@ class toDoApp {
 }
 
 const todos = new toDoApp();
-export {};
