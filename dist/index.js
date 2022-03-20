@@ -11,6 +11,8 @@ class toDoApp {
     renderData() {
         const data = JSON.parse(localStorage.getItem('toDos'));
         if (data != null) {
+            this.listToDo = data;
+            console.log(typeof (this.listToDo));
             data.forEach((element) => {
                 this.createNewItem(element.item, element.isComplete);
             });
@@ -19,19 +21,9 @@ class toDoApp {
         }
     }
     renderForm() {
-        var data = JSON.parse(localStorage.getItem('toDos'));
-        if (data != null) {
-            data.forEach((element) => {
-                this.listToDo.push(element);
-            });
-        }
-        else {
-            this.listToDo = [];
-        }
         const input = document.getElementById('input');
         input.addEventListener('keypress', (event) => {
             var valueInput = input.value;
-            console.log(valueInput);
             var letterNumber = /^[ ]+$/;
             if (event.keyCode == 13 && valueInput.match(letterNumber) == null && valueInput.length != 0) {
                 this.createNewItem(valueInput, false);
@@ -47,7 +39,7 @@ class toDoApp {
         this.checkAllToDo();
     }
     createNewItem(item, isComplete) {
-        var todoListView = document.querySelector('ul');
+        var toDoListView = document.querySelector('ul');
         var card = document.createElement('li');
         var divView = document.createElement('div');
         var inputCheck = document.createElement('input');
@@ -84,15 +76,13 @@ class toDoApp {
         divView.appendChild(lbText);
         divView.appendChild(btnRemove);
         card.appendChild(divView);
-        todoListView.appendChild(card);
+        toDoListView.appendChild(card);
     }
-    //get index of element li in ul
     getIndexOfToDo(ele) {
         var nodes = Array.from(ele.closest('ul').children);
         var index = nodes.indexOf(ele);
         return index;
     }
-    //get state of element li in ul (is complete or not)
     getStateOfToDo(ele) {
         return ele.querySelector("input[type='checkbox']").checked;
     }
@@ -104,26 +94,29 @@ class toDoApp {
         this.saveToDo();
     }
     addNewToDo(item, state) {
-        const newtoDo = new toDo(item, state);
-        this.listToDo.push(newtoDo);
+        const newToDo = new toDo(item, state);
+        this.listToDo.push(newToDo);
         this.saveToDo();
     }
     changeStateToDo(ele) {
         var state = this.getStateOfToDo(ele);
         var index = this.getIndexOfToDo(ele);
-        this.listToDo[index].isComplete = state;
+        var todoChange = this.listToDo[index];
+        // this.listToDo[index].isComplete =state;
+        this.listToDo[index].getItem();
+        console.log(this.listToDo[index].getItem());
         this.saveToDo();
     }
     changeAllStateToDo(state) {
         this.listToDo.forEach((element) => {
-            element.isComplete = state;
+            element.setState(state);
         });
         this.saveToDo();
     }
     changeItemToDo(ele) {
         var valueChange = ele.querySelector('label').innerHTML;
         var index = this.getIndexOfToDo(ele);
-        this.listToDo[index].item = valueChange;
+        this.listToDo[index].setItem(valueChange);
         this.saveToDo();
     }
     saveToDo() {
@@ -197,7 +190,6 @@ class toDoApp {
         const findActive = document.getElementById('find-active');
         findActive.addEventListener('click', () => {
             var allItems = document.querySelectorAll('ul[id="todo-list"] li');
-            console.log(allItems);
             allItems.forEach((item) => {
                 item.querySelector(':checked')
                     ? item.classList.add('hidden')
@@ -237,7 +229,6 @@ class toDoApp {
             this.setCount();
         });
     }
-    //If have any todo isn't complete => return false
     checkIfToDoIsComplete() {
         var allCheckbox = document.querySelectorAll('div input[type=checkbox]');
         for (let element of allCheckbox) {
